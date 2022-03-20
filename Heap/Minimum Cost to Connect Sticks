@@ -1,0 +1,22 @@
+Problem Link--->https://www.lintcode.com/problem/1872/
+
+from heapq import *
+class Solution:
+    """
+    @param sticks: the length of sticks
+    @return: Minimum Cost to Connect Sticks
+    """
+    def MinimumCost(self, sticks):
+        min_heap=[]
+        s=0
+        for i in range(len(sticks)):
+            heappush(min_heap,sticks[i])
+        min_cost=0
+        while len(min_heap)>1:
+              a=heappop(min_heap)
+              b=heappop(min_heap)
+              s+=a+b
+              heappush(min_heap,a+b)             
+    
+        return s
+       
