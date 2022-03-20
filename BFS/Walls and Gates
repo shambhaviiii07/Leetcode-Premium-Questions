@@ -1,0 +1,50 @@
+Problem Link--->https://www.lintcode.com/problem/663/
+
+from collections import deque
+
+from typing import (
+    List,
+)
+class Node:
+    def __init__(self,x,y,distance):
+        self.x=x
+        self.y=y
+        self.distance=distance
+class Solution:
+    """
+    @param rooms: m x n 2D grid
+    @return: nothing
+    """
+    def walls_and_gates(self, rooms: List[List[int]]):
+        # write your code here
+        queue=deque()
+        for i in range(len(rooms)):
+            for j in range(len(rooms[0])):
+                if rooms[i][j]==0:
+                    node=Node(i,j,0)
+                    queue.append(node)
+        while queue:
+            curr=queue.popleft()
+            x,y,distance=curr.x,curr.y,curr.distance
+            if x+1<len(rooms) and rooms[x+1][y]==2147483647:
+                rooms[x+1][y]=distance+1
+                node=Node(x+1,y,distance+1)
+                queue.append(node)
+            if x-1>=0 and rooms[x-1][y]==2147483647:
+                rooms[x-1][y]=distance+1
+                node=Node(x-1,y,distance+1)
+                queue.append(node)
+            if y-1>=0 and rooms[x][y-1]==2147483647:
+                rooms[x][y-1]=distance+1
+                node=Node(x, y-1, distance+1)
+                queue.append(node)
+            if y+1<len(rooms[0]) and rooms[x][y+1]==2147483647:
+                rooms[x][y+1]=distance+1
+                node=Node(x,y+1,distance+1)
+                queue.append(node)
+        return rooms
+
+
+
+
+
