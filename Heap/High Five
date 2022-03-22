@@ -1,0 +1,32 @@
+Problem Link--->https://www.lintcode.com/problem/613/description
+
+'''
+Definition for a Record
+class Record:
+    def __init__(self, id, score):
+        self.id = id
+        self.score = score
+'''
+from heapq import *
+class Solution:
+    # @param {Record[]} results a list of <student_id, score>
+    # @return {dict(id, average)} find the average of 5 highest scores for each person
+    # <key, value> (student_id, average_score)
+    def highFive(self, results):
+        d={}
+        result={}
+        for record in results:
+            if record.id not in d:
+               d[record.id]=[record.score]
+            else:
+                d[record.id].append(record.score)
+        for student in d:
+            maxHeap=[]
+            for i in d[student]:
+                heappush(maxHeap,-i)
+            summ=0
+            for i in range(5):
+                summ+=(-heappop(maxHeap))
+            avg=summ/5
+            result[student]=avg
+        return result
