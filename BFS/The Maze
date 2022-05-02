@@ -1,0 +1,22 @@
+Problem Link-->https://www.lintcode.com/problem/787/
+
+def has_path(self, maze: List[List[int]], start: List[int], destination: List[int]) -> bool:
+        # write your code here
+        queue=deque()
+        directions=[[0,1],[0,-1],[1,0],[-1,0]]
+        queue.append(start)
+        while queue:
+            i,j=queue.popleft()
+            if destination[0]==i and destination[1]==j:
+                return True
+            maze[i][j]=2
+            for x,y in directions:
+                row,col=i+x,j+y
+                while row in range(len(maze)) and col in range(len(maze[0])) and maze[row][col]!=1:
+                    row+=x
+                    col+=y
+                row-=x
+                col-=y
+                if maze[row][col]==0:
+                    queue.append([row,col])
+        return False
