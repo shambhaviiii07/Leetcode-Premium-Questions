@@ -1,0 +1,25 @@
+Problem Link===>https://www.lintcode.com/problem/448/description
+
+"""
+Definition for a binary tree node.
+class TreeNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+"""
+
+from collections import deque
+class Solution:
+    """
+    @param: root: The root of the BST.
+    @param: p: You need find the successor node of p.
+    @return: Successor of p.
+    """
+    def inorderSuccessor(self, root, p):
+        if not root:
+            return None
+        if root.val > p.val:
+            return self.inorderSuccessor(root.left, p) or root
+        if root.val <= p.val:
+            return self.inorderSuccessor(root.right, p)
