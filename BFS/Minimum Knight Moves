@@ -1,0 +1,23 @@
+Problem Statement : http://lixinchengdu.github.io/algorithmbook/leetcode/minimum-knight-moves.html
+
+from collections import deque
+def solve():
+    queue=deque()
+    destination=list(map(int,input().split()))
+    queue.append([0,0,0])
+    visited=set()
+    directions=[[1,2],[2,1],[2,-1],[1,-2],[-1,-2],[-2,-1],[-2,1],[-1,2]]
+    while queue:
+        length=len(queue)
+        for i in range(length):
+            x,y,count=queue.popleft()
+            visited.add((x,y))
+            if x==destination[0] and y==destination[1]:
+                print(count)
+                return
+            for u,v in directions:
+                i,j=x+u,y+v
+                if (i,j) not in visited and i>0 and j>0:
+                    queue.append([i,j,count+1])
+        
+(solve())
