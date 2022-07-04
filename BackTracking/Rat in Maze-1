@@ -1,0 +1,29 @@
+Problem Link--->https://practice.geeksforgeeks.org/problems/rat-in-a-maze-problem/1/?page=4&company[]=Amazon&company[]=Atlassian&curated[]=1&sortBy=submissions#
+
+class Solution:
+    def findPath(self, m, n):
+        # code here
+        d={'U':[-1,0],'D':[1,0],'R':[0,1],'L':[0,-1]}
+        i,j=0,0
+        if m[i][j]==0:
+            return []
+        ans=[]
+        def solve(row,col,l,visited):
+            visited.add((row,col))
+            visited.add((0,0))
+            if row==n-1 and col==n-1:
+                ans.append("".join(l))
+                return 
+            for direction in d:
+                i=row+(d[direction][0])
+                j=col+(d[direction][1])
+                if 0<=i<n and 0<=j<n and (i,j) not in visited and m[i][j]==1:
+                    l.append(direction)
+                    solve(i,j,l,visited)
+                    l.pop()
+                    visited.remove((i,j))
+        if i+1<n and m[i+1][j]==1:
+            solve(i+1,j,['D'],set())
+        if j+1<n and m[i][j+1]==1:
+            solve(i,j+1,['R'],set())
+        return ans
